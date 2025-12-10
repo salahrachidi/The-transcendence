@@ -75,7 +75,7 @@ We believe in "Infrastructure as Code". You don't need to configure 10 files to 
 ### Installation
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/callmemehdy/ft_transcendence.git
+   git clone git@github.com:salahrachidi/The-transcendence.git
    cd ft_transcendence
    ```
 
