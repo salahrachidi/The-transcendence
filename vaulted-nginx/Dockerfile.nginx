@@ -1,0 +1,20 @@
+FROM owasp/modsecurity-crs:nginx
+
+USER root
+
+ENV SSL_CERT_FILE=
+ENV CURL_CA_BUNDLE=
+
+
+RUN apt-get update && apt-get install -y curl jq unzip && \
+    curl -L https://releases.hashicorp.com/vault/1.15.0/vault_1.15.0_linux_amd64.zip -o /tmp/vault.zip && \
+    unzip /tmp/vault.zip -d /usr/local/bin/ && \
+    rm /tmp/vault.zip && \
+    chmod +x /usr/local/bin/vault && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+COPY default.conf /etc/nginx/templates/conf.d/default.conf.template
+
+# i have copied the entrypoint.sh here to override the alreadyin entrypoint . . . 
+COPY entrypoint.sh /docker-entrypoint.d/00-fetch-vault-secrets.sh
+RUN chmod +x /docker-entrypoint.d/00-fetch-vault-secrets.sh

@@ -1,0 +1,26 @@
+FROM prom/alertmanager:latest AS alertmanager
+
+FROM alpine:latest
+
+RUN apk add --no-cache curl unzip ca-certificates && \
+    curl -L https://releases.hashicorp.com/vault/1.15.0/vault_1.15.0_linux_amd64.zip -o /tmp/vault.zip && \
+    unzip /tmp/vault.zip -d /usr/local/bin/ && \
+    rm /tmp/vault.zip && \
+    chmod +x /usr/local/bin/vault
+
+COPY --from=alertmanager /bin/alertmanager /bin/alertmanager
+COPY --from=alertmanager /bin/amtool /bin/amtool
+
+RUN mkdir -p /etc/alertmanager /alertmanager && \
+    chown -R nobody:nobody /etc/alertmanager /alertmanager
+
+COPY alertmanager.yml /etc/alertmanager/alertmanager.yml
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+USER nobody
+
+EXPOSE 9093
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["--config.file=/etc/alertmanager/alertmanager.yml", "--storage.path=/alertmanager"]

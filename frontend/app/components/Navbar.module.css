@@ -1,0 +1,15 @@
+/* app/components/Navbar.module.css */
+.clamp1 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+}
+
+.noScrollbar {
+  scrollbar-width: none;
+}
+
+.noScrollbar::-webkit-scrollbar {
+  display: none;
+}

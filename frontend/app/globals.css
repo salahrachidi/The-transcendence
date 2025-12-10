@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+:root {
+	--royal-purple: #6d28d9;
+	--royal-purple-700: #5b21b6;
+	--neon-pink: #ff0080;
+	--project-blue: #38bdf8;
+	--luxury-black: #0b0c10;
+	--ink-900: #0c0c0c;
+	--ink-850: #111318;
+	--ink-800: #141821;
+	--glass-bg: rgba(255, 255, 255, .08);
+	--glass-blur: blur(12px);
+	--glass-border: rgba(255, 255, 255, .25);
+	--text: #e7e7ee;
+	--muted: #a7a7bb;
+	--radius-card: 20px;
+	--shadow-lg: 0 10px 30px rgba(0, 0, 0, .35);
+	--glow: 0 0 0px rgba(255, 0, 128, 0), 0 0 0px rgba(56, 189, 248, 0);
+	--project-bg: url("/bg.webp");
+	--background: #ffffff;
+	--foreground: #171717;
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	color: var(--text);
+	font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+	font-size: 1rem;
+	line-height: 1.5;
+	background-color: var(--ink-900);
+	position: relative;
+	overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+	background:
+		var(--project-bg) center/cover no-repeat fixed,
+		radial-gradient(1200px 600px at 20% -10%, rgba(255, 0, 128, .25), transparent 60%),
+		radial-gradient(1200px 700px at 120% 120%, rgba(56, 189, 248, .18), transparent 60%),
+		linear-gradient(135deg, #010018 0%, #141821 60%, #0b0c10 100%);
+}
+
+body::after {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+	background: linear-gradient(rgba(255, 255, 255, .03), rgba(255, 255, 255, 0) 2px);
+	background-size: 100% 3px;
+	mix-blend-mode: overlay;
+	opacity: .14;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
+}
+
+.auth-root {
+	font-family: var(--font-display), system-ui, sans-serif;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* =========================================
+   ACCESSIBILITY: High Contrast Mode
+   ========================================= */
+html.a11y-hc {
+	--royal-purple: #ffff00;
+	--royal-purple-700: #ffff00;
+	--neon-pink: #00ffff;
+	--project-blue: #00ffff;
+	--luxury-black: #000000;
+	--ink-900: #000000;
+	--ink-850: #000000;
+	--ink-800: #000000;
+
+	/* Remove transparency */
+	--glass-bg: #000000;
+	--glass-blur: none;
+	--glass-border: #ffffff;
+
+	--text: #ffffff;
+	--muted: #ffff00;
+	--background: #000000;
+	--foreground: #ffffff;
+
+	--login-pink: #ffff00;
+	/* Yellow */
+	--login-purple: #00ffff;
+	/* Cyan */
+}
+
+/* Force high contrast overrides */
+html.a11y-hc body::before,
+html.a11y-hc body::after {
+	display: none !important;
+}
+
+html.a11y-hc .glass,
+html.a11y-hc .log_card,
+html.a11y-hc .reg_card {
+	background: #000000 !important;
+	border: 2px solid #ffffff !important;
+	-webkit-backdrop-filter: none !important;
+	backdrop-filter: none !important;
+	box-shadow: none !important;
+}
+
+/* Ensure focus is very visible */
+html.a11y-hc :focus-visible {
+	outline: 3px solid #ffff00 !important;
+	outline-offset: 2px !important;
+}
+
+/* =========================================
+   ACCESSIBILITY: Text Sizing
+   ========================================= */
+html.text-lg {
+	font-size: 112.5%;
+	/* 18px base */
+}
+
+html.text-xl {
+	font-size: 125%;
+	/* 20px base */
+}
+
+/* =========================================
+   ACCESSIBILITY: Global Focus
+   ========================================= */
+:focus-visible {
+	outline: 2px solid var(--project-blue);
+	outline-offset: 2px;
+}

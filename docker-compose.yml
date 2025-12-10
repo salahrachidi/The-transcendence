@@ -1,0 +1,226 @@
+volumes:
+  upload-volume:
+    name: uploadVolume
+    driver: local
+    driver_opts:
+      type: none
+      device: ./uploads
+      o: bind
+
+  database-volume:
+    name: databseVolume
+    driver: local
+    driver_opts:
+      type: none
+      device: ./database
+      o: bind
+
+  prometheus_data:
+    name: prometheusVolume
+
+  grafana_data:
+    name: grafanaVolume
+
+  alert_data:
+    name: alertVolume
+
+  vault-data:
+    name: vault-data 
+    driver: local
+    driver_opts:
+      type: none
+      device: ./hashicorpvault/vault-data
+      o: bind
+
+  vault-logs:
+    name: vault-logs
+    driver: local
+    driver_opts:
+      type: none
+      device: ./hashicorpvault/vault-logs
+      o: bind
+
+services:
+
+  fedev:
+    image: frontend:themoat
+    container_name: frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    networks:
+      - descendence
+    volumes:
+      - ./frontend:/app
+
+
+  backend:
+    image: backend:descendence
+    container_name: backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    networks:
+      - descendence
+    volumes:
+      - ./uploads:/app/uploads
+      - ./database:/app/database
+    depends_on:
+      vault:
+        condition: service_started
+    environment:
+      - VAULT_ROLE_ID=${ROLE_ID}
+      - VAULT_SECRET_ID=${SECRET_ID}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5555/"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 30s
+    restart: on-failure
+
+  nginx-waf:
+    image: nginx-waf:descendence
+    build:
+      context: ./vaulted-nginx/
+      dockerfile: Dockerfile.nginx
+    container_name:  nginx-waf
+    ports:
+      - "443:443"
+    environment:
+      - VAULT_ADDR=https://vault:8200
+      - VAULT_ROLE_ID=${ROLE_ID}
+      - VAULT_SECRET_ID=${SECRET_ID}
+      - VAULT_SKIP_VERIFY=true
+      - MODSEC_RULE_ENGINE=On
+      - PARANOIA=3
+      - FRONTHOST=http://frontend_dev:3000
+    networks:
+      - descendence
+    restart: on-failure
+    depends_on:
+      vault:
+        condition: service_started
+      fedev:
+        condition: service_started
+
+  prometheus:
+   image: prom/prometheus:latest
+   container_name: prometheus
+   volumes:
+     - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+     - ./monitoring/prometheus/alert_rules/:/etc/prometheus/alert_rules/
+     - prometheus_data:/prometheus
+   command:
+     - '--config.file=/etc/prometheus/prometheus.yml'
+     - '--storage.tsdb.path=/prometheus'
+     - '--storage.tsdb.retention.time=30d'
+   networks:
+     - descendence
+   restart: unless-stopped
+   healthcheck:
+     test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:9090"]
+     interval: 10s
+     timeout: 15s
+     retries: 20
+     start_period: 10s
+   depends_on:
+     alertmanager:
+       condition: service_healthy
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    build:
+      context: ./monitoring/prometheus/
+      dockerfile: Dockerfile.alertmanager
+    container_name: alertmanager
+    restart: unless-stopped
+    networks:
+      - descendence
+    volumes:
+      - alert_data:/alertmanager
+    environment:
+      - VAULT_ADDR=https://vault:8200
+      - VAULT_ROLE_ID=${ROLE_ID}
+      - VAULT_SECRET_ID=${SECRET_ID}
+      - VAULT_SKIP_VERIFY=true
+    depends_on:
+      vault:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:9093/-/healthy"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    networks:
+      - descendence
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning/dashboardsYaml:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./monitoring/grafana/dashboardsJson:/var/lib/grafana/dashboards
+    depends_on:
+      prometheus:
+        condition: service_healthy
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SECURITY_HIDE_VERSION=true
+      - GF_SERVER_ROOT_URL=https://localhost/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  vault:
+    image: hashicorp/vault:latest
+    container_name: vault
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./hashicorpvault/vault-data:/vault/data:rw
+      - ./hashicorpvault/vault-logs:/vault/logs:rw
+      - ./hashicorpvault/vault-config/vault-config.hcl:/vault/config/vault.hcl:ro
+      - ./hashicorpvault/vault-config/vault.crt:/vault/config/vault.crt:ro
+      - ./hashicorpvault/vault-config/vault.key:/vault/config/vault.key:ro
+    environment:
+      - VAULT_SKIP_VERIFY=true
+      - VAULT_ADDR=https://localhost:8200
+    cap_add:
+      - IPC_LOCK
+    restart: unless-stopped
+    command: server
+    networks:
+      - descendence
+    profiles:
+     - vault
+
+  vault-init:
+    image: vault-init:descendence
+    build:
+      context: ./hashicorpvault
+      dockerfile: Dockerfile.vaultInit
+    container_name: vault-init
+    # depends_on:
+    #   vault:
+    #     condition: service_started
+    environment:
+      - VAULT_ADDR=https://vault:8200
+      - VAULT_SKIP_VERIFY=true
+    volumes:
+      - ./:/vault-init/
+    networks:
+      - descendence
+    restart: "no"
+    profiles:
+      - init
+
+networks:
+  descendence:
+    name: descendence
+    driver: bridge

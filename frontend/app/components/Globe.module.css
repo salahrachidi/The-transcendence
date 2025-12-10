@@ -1,0 +1,340 @@
+/* CSS Custom Properties for Theming */
+.sphere {
+	/* Default (Light/Glass) */
+	--globe-border: rgba(255, 255, 255, 0.4);
+	--globe-shadow-inset: rgba(255, 255, 255, 0.1);
+	--globe-shadow-outer: rgba(255, 255, 255, 0.1);
+	--pole-border: rgba(255, 255, 255, 0.8);
+	--pole-bg: rgba(255, 255, 255, 0.2);
+	--pole-shadow: rgba(255, 255, 255, 0.5);
+	--axis-gradient: rgba(255, 255, 255, 0.3);
+
+	/* Transitions */
+	transition: all 0.5s ease-in-out;
+
+	width: 300px;
+	height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	overflow: visible;
+	border-radius: 100%;
+	transform-style: preserve-3d;
+	animation: rotate 8s linear infinite;
+	position: relative;
+}
+
+/* Dark/Neon Mode Override */
+:global(html.neon) .sphere,
+:global(.theme-dark-neon) .sphere {
+	--globe-border: rgba(255, 0, 128, 0.35);
+	/* Neon Pink #ff0080 */
+	--globe-shadow-inset: rgba(255, 0, 128, 0.15);
+	--globe-shadow-outer: rgba(255, 0, 128, 0.15);
+	--pole-border: rgba(255, 0, 128, 0.8);
+	--pole-bg: rgba(255, 0, 128, 0.2);
+	--pole-shadow: rgba(255, 0, 128, 0.6);
+	--axis-gradient: rgba(255, 0, 128, 0.5);
+	/* Neon Pink axis */
+}
+
+
+.meridian {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border: 1px solid var(--globe-border);
+	border-radius: 100%;
+	transform-style: preserve-3d;
+	box-shadow: inset 0 0 12px var(--globe-shadow-inset), 0 0 4px var(--globe-shadow-outer);
+	transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* Meridians Rotation */
+.meridian:nth-child(1) {
+	transform: rotateX(10deg);
+}
+
+.meridian:nth-child(2) {
+	transform: rotateX(20deg);
+}
+
+.meridian:nth-child(3) {
+	transform: rotateX(30deg);
+}
+
+.meridian:nth-child(4) {
+	transform: rotateX(40deg);
+}
+
+.meridian:nth-child(5) {
+	transform: rotateX(50deg);
+}
+
+.meridian:nth-child(6) {
+	transform: rotateX(60deg);
+}
+
+.meridian:nth-child(7) {
+	transform: rotateX(70deg);
+}
+
+.meridian:nth-child(8) {
+	transform: rotateX(80deg);
+}
+
+.meridian:nth-child(9) {
+	transform: rotateX(90deg);
+}
+
+.meridian:nth-child(10) {
+	transform: rotateX(100deg);
+}
+
+.meridian:nth-child(11) {
+	transform: rotateX(110deg);
+}
+
+.meridian:nth-child(12) {
+	transform: rotateX(120deg);
+}
+
+.meridian:nth-child(13) {
+	transform: rotateX(130deg);
+}
+
+.meridian:nth-child(14) {
+	transform: rotateX(140deg);
+}
+
+.meridian:nth-child(15) {
+	transform: rotateX(150deg);
+}
+
+.meridian:nth-child(16) {
+	transform: rotateX(160deg);
+}
+
+.meridian:nth-child(17) {
+	transform: rotateX(170deg);
+}
+
+.meridian:nth-child(18) {
+	transform: rotateX(180deg);
+}
+
+.meridian:nth-child(19) {
+	transform: rotateX(190deg);
+}
+
+.meridian:nth-child(20) {
+	transform: rotateX(200deg);
+}
+
+.meridian:nth-child(21) {
+	transform: rotateX(210deg);
+}
+
+.meridian:nth-child(22) {
+	transform: rotateX(220deg);
+}
+
+.meridian:nth-child(23) {
+	transform: rotateX(230deg);
+}
+
+.meridian:nth-child(24) {
+	transform: rotateX(240deg);
+}
+
+.meridian:nth-child(25) {
+	transform: rotateX(250deg);
+}
+
+.meridian:nth-child(26) {
+	transform: rotateX(260deg);
+}
+
+.meridian:nth-child(27) {
+	transform: rotateX(270deg);
+}
+
+.meridian:nth-child(28) {
+	transform: rotateX(280deg);
+}
+
+.meridian:nth-child(29) {
+	transform: rotateX(290deg);
+}
+
+.meridian:nth-child(30) {
+	transform: rotateX(300deg);
+}
+
+.meridian:nth-child(31) {
+	transform: rotateX(310deg);
+}
+
+.meridian:nth-child(32) {
+	transform: rotateX(320deg);
+}
+
+.meridian:nth-child(33) {
+	transform: rotateX(330deg);
+}
+
+.meridian:nth-child(34) {
+	transform: rotateX(340deg);
+}
+
+.meridian:nth-child(35) {
+	transform: rotateX(350deg);
+}
+
+.meridian:nth-child(36) {
+	transform: rotateX(360deg);
+}
+
+.latitude {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border: 1px solid var(--globe-border);
+	transform: rotateY(90deg);
+	border-radius: 100%;
+	box-shadow: inset 0 0 12px var(--globe-shadow-inset), 0 0 4px var(--globe-shadow-outer);
+	transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* Latitudes Positioning */
+/* Top Hemisphere */
+.latitude:nth-child(37) {
+	width: 296px;
+	height: 296px;
+	top: 2px;
+	left: 2px;
+	transform: rotateY(90deg) translateZ(-25px);
+}
+
+.latitude:nth-child(38) {
+	width: 280px;
+	height: 280px;
+	top: 10px;
+	left: 10px;
+	transform: rotateY(90deg) translateZ(-50px);
+}
+
+.latitude:nth-child(39) {
+	width: 260px;
+	height: 260px;
+	top: 20px;
+	left: 20px;
+	transform: rotateY(90deg) translateZ(-75px);
+}
+
+.latitude:nth-child(40) {
+	width: 220px;
+	height: 220px;
+	top: 40px;
+	left: 40px;
+	transform: rotateY(90deg) translateZ(-100px);
+}
+
+.latitude:nth-child(41) {
+	width: 160px;
+	height: 160px;
+	top: 70px;
+	left: 70px;
+	transform: rotateY(90deg) translateZ(-125px);
+}
+
+/* Pole Top */
+.latitude:nth-child(42) {
+	width: 20px;
+	height: 20px;
+	top: 140px;
+	left: 140px;
+	border: 2px solid var(--pole-border);
+	background: var(--pole-bg);
+	transform: rotateY(90deg) translateZ(-150px);
+	box-shadow: 0 0 20px var(--pole-shadow);
+	transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* Bottom Hemisphere */
+.latitude:nth-child(43) {
+	width: 296px;
+	height: 296px;
+	top: 2px;
+	left: 2px;
+	transform: rotateY(90deg) translateZ(25px);
+}
+
+.latitude:nth-child(44) {
+	width: 280px;
+	height: 280px;
+	top: 10px;
+	left: 10px;
+	transform: rotateY(90deg) translateZ(50px);
+}
+
+.latitude:nth-child(45) {
+	width: 260px;
+	height: 260px;
+	top: 20px;
+	left: 20px;
+	transform: rotateY(90deg) translateZ(75px);
+}
+
+.latitude:nth-child(46) {
+	width: 220px;
+	height: 220px;
+	top: 40px;
+	left: 40px;
+	transform: rotateY(90deg) translateZ(100px);
+}
+
+.latitude:nth-child(47) {
+	width: 160px;
+	height: 160px;
+	top: 70px;
+	left: 70px;
+	transform: rotateY(90deg) translateZ(125px);
+}
+
+/* Pole Bottom */
+.latitude:nth-child(48) {
+	width: 20px;
+	height: 20px;
+	top: 140px;
+	left: 140px;
+	transform: rotateY(90deg) translateZ(150px);
+	border: 2px solid var(--pole-border);
+	background: var(--pole-bg);
+	box-shadow: 0 0 20px var(--pole-shadow);
+	transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+.axis {
+	position: absolute;
+	width: 600px;
+	height: 2px;
+	top: calc(50% - 1px);
+	background: linear-gradient(to left, transparent, var(--axis-gradient), transparent);
+	transition: background 0.5s ease-in-out;
+}
+
+.axis+.axis {
+	transform: rotateX(90deg);
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotateX(30deg) rotateY(0deg) rotateZ(80deg);
+	}
+
+	100% {
+		transform: rotateX(30deg) rotateY(360deg) rotateZ(80deg);
+	}
+}
