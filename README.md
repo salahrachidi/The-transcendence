@@ -91,6 +91,7 @@ We believe in "Infrastructure as Code". You don't need to configure 10 files to 
 ---
 
 ## 💡 Challenges Solved
+- **Immersive Arcade UI:** Crafted a custom Glassmorphism/Neon design language using **TailwindCSS**, **Framer Motion**, and **Lucide Icons** to enhance user immersion to the Arcade game vibe.
 - **The "Cookie" Dilemma:** Solving `SameSite=Strict` policies while handling cross-container communication.
 - **Secret Zero:** Bootstrapping Vault securely without hardcoding the initial unseal tokens in the application code.
 - **State Synchronization:** Handling race conditions in real-time game logic using optimistic UI updates.
@@ -98,5 +99,14 @@ We believe in "Infrastructure as Code". You don't need to configure 10 files to 
 ---
 
 ## 📬 Contact
-**Mehdy** - Full Stack Engineer & DevOps Enthusiast  
-[LinkedIn](Your_LinkedIn_URL) | [GitHub](https://github.com/callmemehdy)
+**Mehdi El Akary** - AI/ML & DevOps Enthusiast
+[LinkedIn](https://www.linkedin.com/in/elakarymehdi/) | [GitHub](https://github.com/callmemehdy)
+
+**Salaheddine rachidi** - Full-Stack & Robotics & AI/ML Enthusiast
+[LinkedIn](https://www.linkedin.com/in/rachidi1/) | [GitHub](https://github.com/salahrachidi)
+
+**mohamed elhoudaigui** - AI/ML & Backend Enthusiast
+[LinkedIn](https://www.linkedin.com/in/mohamed-el-houdaigui-4389a6385/) | [GitHub](https://github.com/mohamedelhoudaigui)
+
+**Anas El Ammari** - CyberSecurity & AI/ML Enthusiast
+[LinkedIn](https://www.linkedin.com/in/anas-ri/) | [GitHub](https://github.com/gitraiden)
