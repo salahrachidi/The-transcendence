@@ -42,7 +42,7 @@ volumes:
 
 services:
 
-  fedev:
+  frontend:
     image: frontend:themoat
     container_name: frontend
     build: 
@@ -65,9 +65,6 @@ services:
     volumes:
       - ./uploads:/app/uploads
       - ./database:/app/database
-    depends_on:
-      vault:
-        condition: service_started
     environment:
       - VAULT_ROLE_ID=${ROLE_ID}
       - VAULT_SECRET_ID=${SECRET_ID}
@@ -94,14 +91,12 @@ services:
       - VAULT_SKIP_VERIFY=true
       - MODSEC_RULE_ENGINE=On
       - PARANOIA=3
-      - FRONTHOST=http://frontend_dev:3000
+      - FRONTHOST=http://frontend:3000
     networks:
       - descendence
     restart: on-failure
     depends_on:
-      vault:
-        condition: service_started
-      fedev:
+      frontend:
         condition: service_started
 
   prometheus:
@@ -144,9 +139,6 @@ services:
       - VAULT_ROLE_ID=${ROLE_ID}
       - VAULT_SECRET_ID=${SECRET_ID}
       - VAULT_SKIP_VERIFY=true
-    depends_on:
-      vault:
-        condition: service_started
     healthcheck:
       test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:9093/-/healthy"]
       interval: 10s
@@ -170,11 +162,11 @@ services:
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=false
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
       - GF_SECURITY_HIDE_VERSION=true
       - GF_SERVER_ROOT_URL=https://localhost/grafana/
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
-    env_file:
-      - .env
     restart: unless-stopped
 
   vault:
@@ -206,9 +198,9 @@ services:
       context: ./hashicorpvault
       dockerfile: Dockerfile.vaultInit
     container_name: vault-init
-    # depends_on:
-    #   vault:
-    #     condition: service_started
+    depends_on:
+      vault:
+        condition: service_started
     environment:
       - VAULT_ADDR=https://vault:8200
       - VAULT_SKIP_VERIFY=true
@@ -218,7 +210,7 @@ services:
       - descendence
     restart: "no"
     profiles:
-      - init
+      - vault
 
 networks:
   descendence:

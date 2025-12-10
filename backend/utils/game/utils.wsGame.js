@@ -19,8 +19,8 @@ let waitingPlayer = null;
 const gameRooms = new Map();
 const socketToPlayer = new Map();
 const playerToRoom = new Map();
-const userIdToPlayer = new Map(); // Track active players by userId
-const disconnectTimeouts = new Map(); // Store timeout IDs for grace period
+const userIdToPlayer = new Map();
+const disconnectTimeouts = new Map();
 
 function sendError(socket, message) {
 	const errorMsg = {
@@ -59,7 +59,6 @@ export function registerWebSocketRoutes(server) {
 		});
 	});
 
-	// Heartbeat interval
 	setInterval(() => {
 		server.websocketServer.clients.forEach((ws) => {
 			if (ws.isAlive === false) return ws.terminate();
@@ -80,7 +79,7 @@ function handleMessage(socket, message) {
 			handlePlayerInput(socket, message.payload.direction);
 			break;
 		case "LEAVE_GAME":
-			handleDisconnect(socket, true); // True = explicit leave (no grace period)
+			handleDisconnect(socket, true);
 			break;
 		default:
 			sendError(socket, "Unknown message type");

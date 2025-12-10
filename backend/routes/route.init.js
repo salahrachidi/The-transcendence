@@ -17,8 +17,6 @@ async function initRoutes(server) {
 	server.register(friendRoutes, { prefix: '/friend' })
 	server.register(gameRoutes, { prefix: '/game' })
 	server.register(matchRoutes, { prefix: '/match' })
-	
-	// Register WebSocket routes for remote game
 	registerWebSocketRoutes(server)
 }
 

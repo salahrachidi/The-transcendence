@@ -59,7 +59,7 @@ async function registerPlugins(server) {
 		startRedirectPath: '/auth/github',
 		//callbackUri: 'http://localhost:3000/auth/github/callback'
 		// added by xeloda: update callbackUri to use FRONTEND_URL env var
-		callbackUri: `${process.env.FRONTEND_URL || 'http://localhost:3001'}/auth/github/callback`,
+		callbackUri: `${process.env.PUBLIC_URL || 'https://localhost'}/auth/github/callback`,
 		// added by xeloda: add cookie configuration for development environment
 		cookie: {
 			secure: true, //!!!!! important Set to true in production with HTTPS

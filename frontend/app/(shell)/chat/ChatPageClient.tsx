@@ -191,102 +191,127 @@ export default function ChatPageClient() {
 
 	//! ⁡⁢⁣⁢WebSocket connection (one per page)⁡
 	useEffect(() => {
+		// Only connect if we are logged in (me exists)
 		if (!me) return;
 
-		let isMounted = true;
-		let reconnectTimer: NodeJS.Timeout;
+		// Prevent multiple connections if already connected/connecting
+		if (socketRef.current && (socketRef.current.readyState === WebSocket.OPEN || socketRef.current.readyState === WebSocket.CONNECTING)) {
+			return;
+		}
 
-		const connect = () => {
-			if (!isMounted) return;
-			// Prevent multiple connections
-			if (socketRef.current && (socketRef.current.readyState === WebSocket.OPEN || socketRef.current.readyState === WebSocket.CONNECTING)) {
-				return;
-			}
+		//! open WebSocket once when the chat page mounts
+		const url = getWsUrl();
+		if (!url) return;
+		const socket = new WebSocket(url);
+		socketRef.current = socket;
 
-			const url = getWsUrl();
-			if (!url) return;
-			const socket = new WebSocket(url);
-			socketRef.current = socket;
-
-			socket.onopen = () => {
-				// console.log("[WS] connected");
-				setSendError(null);
-			};
-
-			socket.onerror = (event) => {
-				console.warn("[WS] error", event);
-			};
-
-			socket.onclose = () => {
-				// console.log("[WS] disconnected");
-				socketRef.current = null;
-				if (isMounted) {
-					// Auto-reconnect after 3s
-					reconnectTimer = setTimeout(connect, 3000);
-				}
-			};
-
-			socket.onmessage = (event) => {
-				try {
-					const data = JSON.parse(event.data);
-
-					if ("success" in data && data.success === false) {
-						setSendError(data.result || t("chat.errors.sendMessage"));
-						return;
-					}
-
-					if (data.type === "message") {
-						const isFromMe = data.sender === meRef.current?.nickname;
-						const otherUsername = isFromMe ? data.receiver : data.sender;
-
-						// Refs are safe to use inside this closure because they are mutable objects
-						// However, ensure conversationsRef and activeConvIdRef are updated via the separate useEffect
-
-						const conv = conversationsRef.current.find(c => c.name === otherUsername);
-						const convId = conv ? conv.id : null;
-						const currentActiveId = activeConvIdRef.current;
-
-						if (convId && convId === currentActiveId) {
-							const newMsg: ChatMessage = {
-								id: `ws-${Date.now()}`,
-								conversationId: convId,
-								direction: isFromMe ? "out" : "in",
-								text: data.message,
-								time: new Date(String(data.timestamp)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-							};
-							setMessages(prev => [...prev, newMsg]);
-						}
-
-						// Refresh conversations
-						fetchConversations()
-							.then(newData => {
-								setConversations(prev => {
-									// Merge logic...
-									// Simplified for brevity, same logic as before
-									const temps = prev.filter(c => c.isTemporary);
-									const stillTemps = temps.filter(t => !newData.some(n => n.name === t.name));
-									return [...stillTemps, ...newData];
-								});
-							})
-							.catch(console.error);
-					}
-				} catch (error) {
-					console.error("[WS] message error", error);
-				}
-			};
+		socket.onopen = () => {
+			console.log("[WS] connected"); // DEBUG
+			// Auth is handled via cookies automatically
 		};
 
-		connect();
+		socket.onerror = event => {
+			console.warn("[WS] error", event); // DEBUG
+		};
+
+		socket.onclose = () => {
+			console.log("[WS] disconnected"); // DEBUG
+			socketRef.current = null;
+		};
+
+		socket.onmessage = event => {
+			//console.log("[WS] raw message from echo server:", event.data); // DEBUG
+			try {
+				const data = JSON.parse(event.data);
+
+				// Handle error responses (success: false)
+				if ("success" in data && data.success === false) {
+					setSendError(data.result || t("chat.errors.sendMessage"));
+					return;
+				}
+
+				if (data.type === "message") {
+					// We need to map this incoming message.
+					// Data structure: { type: "message", sender: "username", receiver: "username", message: "...", timestamp: "..." }
+
+					// 1. If it belongs to active conversation, append it.
+					// We need to know the conversation ID logic. 
+					// The WS message DOES NOT contain conversation ID!
+					// We must match by sender/receiver.
+
+					const isFromMe = data.sender === meRef.current?.nickname;
+					const otherUsername = isFromMe ? data.receiver : data.sender;
+
+					// Find which conversation this belongs to
+					// Use refs to avoid stale closure
+					const conv = conversationsRef.current.find(c => c.name === otherUsername);
+					const convId = conv ? conv.id : null;
+					const currentActiveId = activeConvIdRef.current;
+
+					// If we are looking at this conversation, append message
+					if (convId && convId === currentActiveId) {
+						const newMsg: ChatMessage = {
+							id: `ws-${Date.now()}`, // temp id
+							conversationId: convId,
+							direction: isFromMe ? "out" : "in",
+							text: data.message,
+							time: new Date(String(data.timestamp)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+						};
+
+						setMessages(prev => {
+							// Simple dedupe prevention matching content+approx time could be good, but for now just append
+							return [...prev, newMsg];
+						});
+					}
+
+					// 2. Refresh conversations list (to show preview/unread)
+					// Handle merging of temporary conversations
+					fetchConversations()
+						.then(newData => {
+							setConversations(prev => {
+								const currentActiveId = activeConvIdRef.current;
+								const activeConv = prev.find(c => c.id === currentActiveId);
+
+								// 1. Check if we need to swap the active conversation ID
+								// (If we were on a temporary one, and the backend now returns a real one)
+								if (activeConv?.isTemporary) {
+									const match = newData.find(n => n.name === activeConv.name);
+									if (match) {
+										// Found a real conversation for our temporary one.
+										// We must switch to the real ID.
+										// Note: Calling setState inside setState callback is generally safe in event handlers/async
+										// setActiveConversationId(match.id); // Don't swap ID mid-stream if possible, or do it carefully
+										// Actually, we SHOULD swap it so future messages use the real ID logic?
+										// But we also have state depending on activeConversationId...
+										// For now, let's just merge list.
+									} else {
+										// Not found yet (maybe latent), keep the temp one in the list
+										// returning [...newData, activeConv] would be duplicate if we aren't careful
+										// But here match is null, so newData does NOT contain it.
+									}
+								}
+
+								// 2. Merge: Keep any temporary conversations that are NOT in the new list
+								const temps = prev.filter(c => c.isTemporary);
+								const stillTemps = temps.filter(t => !newData.some(n => n.name === t.name));
+
+								return [...stillTemps, ...newData];
+							});
+						})
+						.catch(console.error);
+				}
+			} catch (error) {
+				console.error("[WS] failed to parse message", error); // DEBUG
+			}
+		};
 
 		return () => {
-			isMounted = false;
-			clearTimeout(reconnectTimer);
-			if (socketRef.current) {
-				socketRef.current.close();
-				socketRef.current = null;
+			if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING) {
+				socket.close();
 			}
+			socketRef.current = null;
 		};
-	}, [me]); // Re-connect only if user changes (login/logout)
+	}, [me]); // Dependent on 'me' (user logged in) to start connection, NOT activeConversationId
 
 	//! ⁡⁢⁣⁢sending handler⁡
 	const handleSendMessage = async (rawText: string) => {

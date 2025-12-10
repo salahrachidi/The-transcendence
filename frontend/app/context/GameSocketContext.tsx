@@ -24,13 +24,13 @@ export function GameSocketProvider({ children }: { children: React.ReactNode }) 
 		// Initialize the game instance once
 		if (!gameRef.current) {
 			gameRef.current = new remoteGame(
-				undefined, // onScoreUpdate
-				undefined, // onGameEnd
-				() => setStatus("waiting"), // onWaiting
+				undefined,
+				undefined,
+				() => setStatus("waiting"),
 				(opponent) => {
 					setStatus("playing");
 					setOpponentName(opponent);
-				}  // onGameStart
+				}
 			);
 		}
 

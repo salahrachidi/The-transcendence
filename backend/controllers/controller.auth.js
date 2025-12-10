@@ -271,7 +271,7 @@ const authController = {
 			const jwt_token = await this.generateToken(safe_user)
 
 			// added by xeloda: add FRONTEND_URL env var check with localhost fallback for redirect
-			const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3001'
+			const frontendUrl = process.env.FRONTEND_URL || 'https://localhost'
 			//console.log("Redirecting to:", `${frontendUrl}/dashboard`); // DEBUG
 			// added by xeloda: replace JSON response with redirect to dashboard
 			return reply.setCookie('token', jwt_token, jwtCookieParams.cookie).redirect(`${frontendUrl}/dashboard`)

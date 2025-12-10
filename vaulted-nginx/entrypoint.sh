@@ -20,7 +20,7 @@ echo "Fetching secrets from Vault..."
 SECRETS=$(vault kv get -format=json "$SECRET_PATH" | jq -r '.data.data')
 export SECRETS
 
-echo "$SECRETS"
+# echo "$SECRETS"
 
 echo "Fetching certificates from Vault..."
 if echo "$SECRETS" | jq -e '.NGINX_CERT' > /dev/null 2>&1; then

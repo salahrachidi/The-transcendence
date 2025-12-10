@@ -11,7 +11,7 @@ const server = fastify({
 });
 
 // dont touch vault init it should be here . . .
-//await initVault();
+await initVault();
 await registerPlugins(server);
 await initDb(server);
 await initRoutes(server);

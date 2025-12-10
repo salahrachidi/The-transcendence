@@ -104,7 +104,6 @@ export class GameRoom {
 		}
 		const winner = this.leftPaddle.score >= this.config.maxScore ? "left" : "right";
 
-		// Save match to database
 		await this.saveMatchToDB(winner);
 
 		this.playerLeft.send({
@@ -121,7 +120,7 @@ export class GameRoom {
 		try {
 			const matchModel = (await import("../../models/model.match.js")).default;
 			const gameStateModel = (await import("../../models/model.gameState.js")).default;
-			const db = this.db; // DB instance needs to be passed to GameRoom
+			const db = this.db;
 
 			if (!db) {
 				console.error("Database not available, skipping match save");
@@ -150,7 +149,6 @@ export class GameRoom {
 				mode: this.config.mode || "remote"
 			});
 
-			// Update game states ONLY if it's a remote/ranked game
 			if (this.config.mode === 'remote') {
 				await gameStateModel.registerWin(db, winner_id);
 				await gameStateModel.registerLoss(db, loser_id);

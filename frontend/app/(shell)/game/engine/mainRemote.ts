@@ -59,23 +59,18 @@ export class remoteGame {
 		this.ws = new WebSocket(wsURL);
 
 		this.ws.onopen = () => {
-			//console.log("[remoteGame] ✅ Connected to game server");
-			//console.log(`[remoteGame] Sending JOIN_GAME for ${playerName} (userId: ${this.userId})`);
 			this.send({ type: "JOIN_GAME", payload: { playerName, userId: this.userId } });
 		};
 
 		this.ws.onmessage = (event) => {
-			//console.log("[remoteGame] 📨 Message received:", event.data);
 			const message: ServerMessage = JSON.parse(event.data);
 			this.handleMessage(message);
 		}
 
 		this.ws.onerror = (error) => {
-			// console.error("[remoteGame] WebSocket error (this is normal during connection)");
 		};
 
 		this.ws.onclose = (event) => {
-			//console.log(`[remoteGame] Disconnected - Code: ${event.code}, Clean: ${event.wasClean}`);
 			this.stop();
 		};
 	}
@@ -191,7 +186,7 @@ export class remoteGame {
 		const canvasW = this.canvas.width;
 		const canvasH = this.canvas.height;
 
-		// Gradient background - spread more
+		// Gradient background
 		const gradient = this.ctx.createRadialGradient(canvasW * 0.15, canvasH * 0.3, 0, canvasW * 0.15, canvasH * 0.3, canvasW * 1.2);
 		gradient.addColorStop(0, "rgba(56, 189, 248, 0.35)");
 		gradient.addColorStop(0.7, "rgba(0, 0, 0, 0)");
@@ -225,7 +220,7 @@ export class remoteGame {
 
 		this.ctx.shadowBlur = 0;
 
-		// Draw left paddle (blue glow) - rounded
+		// Draw left paddle
 		this.ctx.shadowBlur = 20;
 		this.ctx.shadowColor = "#38bdf8";
 		const leftGradient = this.ctx.createLinearGradient(
@@ -252,7 +247,7 @@ export class remoteGame {
 		this.ctx.closePath();
 		this.ctx.fill();
 
-		// Draw right paddle (pink glow) - rounded
+		// Draw right paddle
 		this.ctx.shadowColor = "#ec4899";
 		const rightGradient = this.ctx.createLinearGradient(
 			rightPaddle.position.x,
@@ -285,15 +280,15 @@ export class remoteGame {
 	private drawCenterLine() {
 		const canvasW = this.canvas.width;
 		const canvasH = this.canvas.height;
-		const padding = 40; // Padding from top and bottom
+		const padding = 40;
 
 		this.ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
-		this.ctx.lineWidth = 2; // Thin line
+		this.ctx.lineWidth = 2;
 		this.ctx.beginPath();
 		this.ctx.moveTo(canvasW / 2, padding);
 		this.ctx.lineTo(canvasW / 2, canvasH - padding);
 		this.ctx.stroke();
-		this.ctx.lineWidth = 1; // Reset line width
+		this.ctx.lineWidth = 1;
 	}
 
 	disconnect(): void {

@@ -24,7 +24,6 @@ clean_all: vault-clean
 clean_front:
 	@rm -rf ./frontend/.next ./frontend/node_modules
 
-# Remove "down" from here so it does not shutdown frontend container
 up_backend:
 	@docker compose up backend -d --build
 
@@ -62,11 +61,16 @@ ps:
 
 # vault shit
 
-vault: bind_mounts
+chmod:
+	@chmod -R 776 hashicorpvault
+
+vault: bind_mounts chmod
 	@echo "Starting Vault..."
-	@docker compose up -d vault && bash ./secrets/role_creds.txt; docker compose up -d vault-init --build
-	@echo "run hadi 3fk ila bghiti tkhdm b setter-getter: source ./secrets/role_creds.txt | then make up please"
-	@echo "Vault initialized and configured"
+	@docker compose --profile vault up -d vault
+
+vault-init:
+	@echo "seeding Vault..."
+	@docker compose --profile vault up -d vault-init --build
 
 vault-status:
 	@echo "Vault Status:"
@@ -94,32 +98,6 @@ vault-clean:
 	@rm -f ./vault-keys.json ./secrets/*
 	@echo "Vault data cleaned"
 
-# vault-get:
-# 	@bash -c 'if [ -z "$(filter-out $$@,$(MAKECMDGOALS))" ]; then \
-# 		echo "Usage: make vault-get SECRET_KEY"; \
-# 		echo "Example: make vault-get DATABASE_PASSWORD"; \
-# 		exit 1; \
-# 	fi; \
-# 	if [ ! -f .env ]; then \
-# 		echo ".env file not found"; \
-# 		exit 1; \
-# 	fi; \
-# 	source ./secrets/role_creds.txt; \
-# 	bash hashicorpvault/getter_setter/get_secret.sh $$ROLE_ID $$SECRET_ID secret/descendence/env $(filter-out $$@,$(MAKECMDGOALS))'
-
-# vault-set:
-# 	@bash -c 'if [ -z "$(filter-out $$@,$(MAKECMDGOALS))" ]; then \
-# 		echo "Usage: make vault-set KEY=VALUE [KEY2=VALUE2 ...]"; \
-# 		echo "Example: make vault-set API_KEY=abc123 DB_PASS=secret"; \
-# 		exit 1; \
-# 	fi; \
-# 	if [ ! -f .env ]; then \
-# 		echo ".env file not found"; \
-# 		exit 1; \
-# 	fi; \
-# 	source .env; \
-# 	bash hashicorpvault/getter_setter/set_secret.sh $$ROLE_ID $$SECRET_ID secret/descendence/env $(filter-out $$@,$(MAKECMDGOALS))'
-
 vault-restart:
 	@echo "Restarting Vault..."
 	@docker compose restart vault
@@ -131,4 +109,4 @@ vault-restart:
 	@:
 # hh
 
-.PHONY: vault vault-status vault-unseal vault-login vault-clean vault-get vault-set vault-restart
+.PHONY: vault vault-status vault-unseal vault-login vault-clean vault-get vault-set vault-restart vault-init chmod

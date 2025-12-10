@@ -20,4 +20,3 @@ RUN apk add --no-cache \
 WORKDIR /vault-init
 
 ENTRYPOINT ["./hashicorpvault/init_vault.sh"]
-# ENTRYPOINT ["tail", "-f"]
