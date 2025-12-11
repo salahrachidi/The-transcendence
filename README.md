@@ -60,7 +60,7 @@ graph TD
 ## 📸 Visual Showcase
 <!--*(Add your GIFs here! Recruiter Tip: People watch videos more than they read code.)*-->
 
-### 🎥 Live Demonstrations
+<!--### 🎥 Live Demonstrations
 | **Remote Game** | **Tournament Mode** |
 |:------------------:|:-------------------:|
 | ![Remote](/uploads/gifs/remote-10.gif) | ![Tournament](/uploads/gifs/Tournament-10.gif) |
@@ -71,7 +71,7 @@ graph TD
 
 | **Secure Auth Flow (2FA)** | **Grafana Monitoring** |
 |:------------------:|:-------------------:|
-| ![Auth](/uploads/gifs/auth-10.gif) | ![Grafana](/uploads/gifs/grafana-10.gif) |
+| ![Auth](/uploads/gifs/auth-10.gif) | ![Grafana](/uploads/gifs/grafana-10.gif) |-->
 
 ### 🎮 Gameplay & Matchmaking
 | **Remote Match Launcher** | **Tournament Launcher** |
