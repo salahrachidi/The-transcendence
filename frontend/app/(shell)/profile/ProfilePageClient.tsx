@@ -207,7 +207,7 @@ export default function ProfilePageClient({ initialTab = "info", viewingUserId }
 				)}
 			</div>
 			{/* ========== ROW 2: Profile / Settings content ========== */}
-			<div className="grid grid-cols-12 sm:gap-4 md:gap-5 lg:gap-6 2xl:gap-8 min-w-0 h-auto mt-6">
+			<div className="grid grid-cols-12 sm:gap-4 md:gap-5 lg:gap-6 2xl:gap-8 min-w-0 h-auto mt-6" style={{ backdropFilter: "var(--glass-blur)", WebkitBackdropFilter: "var(--glass-blur)" }}>
 				<section className="col-span-12 min-w-0 h-auto">
 					{activeTab === "info" && (
 						<div className="grid grid-cols-12 sm:gap-4 md:gap-5 lg:gap-6 2xl:gap-8 min-w-0 h-auto animate-fade-in">
