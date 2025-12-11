@@ -1,6 +1,6 @@
 # ft_transcendence: The Ultimate Ping Pong Platform 🏓
 
-![Poster](/uploads/poster.png)
+![Poster](/uploads/Poster.png)
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker&logoColor=white)
