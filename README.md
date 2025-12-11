@@ -1,5 +1,7 @@
-<h1 align="center" style="color: indigo;">The Transcendence</h1>
-<h3 align="center">The Ultimate Ping Pong Platform 🏓</h3>
+<div align="center">
+  <h1>The Transcendence</h1>
+  <h3>The Ultimate Ping Pong Platform 🏓</h3>
+</div>
 
 ![Poster](/uploads/Poster.png)
 
