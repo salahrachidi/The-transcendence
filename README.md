@@ -58,15 +58,40 @@ graph TD
 ---
 
 ## 📸 Visual Showcase
-*(Add your GIFs here! Recruiter Tip: People watch videos more than they read code.)*
+<!--*(Add your GIFs here! Recruiter Tip: People watch videos more than they read code.)*-->
 
-| **Real-Time Gameplay** | **Security & 2FA Flow** |
+### 🎮 Gameplay & Matchmaking
+| **Remote Match Launcher** | **Tournament Launcher** |
 |:------------------:|:-------------------:|
-| *[Place GIF of gameplay]* | *[Place GIF of login/2FA]* |
+| ![Remote Match](/uploads/screenshots/remote%20match%20luncher.png) | ![Tournament](/uploads/screenshots/tournament%20luncher.png) |
 
-| **Dashboard Analytics** | **Live Chat** |
+| **Local Launcher** | **Matches History** |
 |:------------------:|:-------------------:|
-| *[Place GIF of stats]* | *[Place GIF of chat]* |
+| ![Local Match](/uploads/screenshots/local%20luncher.png) | ![History](/uploads/screenshots/matches%20history.png) |
+
+### 👤 User Profile & Settings
+| **User Profile** | **Account Settings** |
+|:------------------:|:-------------------:|
+| ![Profile](/uploads/screenshots/profile.png) | ![Settings](/uploads/screenshots/settings.png) |
+
+### 🔐 Authentication
+| **Login Page** | **Registration** |
+|:------------------:|:-------------------:|
+| ![Login](/uploads/screenshots/login.png) | ![Register](/uploads/screenshots/register.png) |
+
+### 💬 Social & Features
+| **Live Chat** | **Dashboard (Main)** |
+|:------------------:|:-------------------:|
+| ![Chat](/uploads/screenshots/chat.png) | ![Dashboard](/uploads/screenshots/dashboard-en.png) |
+
+### 🌍 Internationalization & Accessibility
+| **Dashboard (Arabic)** | **Dashboard (French)** |
+|:------------------:|:-------------------:|
+| ![Dashboard AR](/uploads/screenshots/dashboard-ar.png) | ![Dashboard FR](/uploads/screenshots/dsahboard-fr.png) |
+
+| **High Contrast Mode** | **Dark Mode** |
+|:------------------:|:-------------------:|
+| ![High Contrast](/uploads/screenshots/dashboard-hight-contrast.png) | ![Dark Mode](/uploads/screenshots/dsahboard-dark.png) |
 
 ---
 
