@@ -35,4 +35,4 @@ vault-keys.json
 
 # Data
 hashicorpvault/vault-data/
-uploads/
+#uploads/
