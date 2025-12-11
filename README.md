@@ -1,4 +1,5 @@
-# ft_transcendence: The Ultimate Ping Pong Platform 🏓
+<h1 align="center" style="color: indigo;">The Transcendence</h1>
+<h3 align="center">The Ultimate Ping Pong Platform 🏓</h3>
 
 ![Poster](/uploads/Poster.png)
 
