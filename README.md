@@ -106,6 +106,11 @@ graph TD
 |:------------------:|:-------------------:|
 | ![High Contrast](/uploads/screenshots/dashboard-hight-contrast.png) | ![Dark Mode](/uploads/screenshots/dsahboard-dark.png) |
 
+### 📊 DevOps & Monitoring
+| **Grafana Query Dashboard** | **Grafana HTTP Dashboard** |
+|:------------------:|:-------------------:|
+| ![Grafana 1](/uploads/screenshots/graf1.png) | ![Grafana 2](/uploads/screenshots/graf2.png) |
+
 ---
 
 ## 🛠️ Getting Started
