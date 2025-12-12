@@ -67,7 +67,7 @@ graph TD
     Backend -->|Read/Write| DB[(Database)]
     Backend -->|Auth| Vault[HashiCorp Vault]
     Backend -->|Metrics| Prom[Prometheus Monitor]
-
+```
 
 
 ### Tech Stack
@@ -178,6 +178,3 @@ We believe in "Infrastructure as Code". You don't need to configure 10 files to 
 | **Salaheddine Rachidi** | Full-Stack, Robotics & AI/ML | [](https://www.linkedin.com/in/rachidi1/) [](https://github.com/salahrachidi) |
 | **Mohamed Elhoudaigui** | AI/ML & Backend | [](https://www.linkedin.com/in/mohamed-el-houdaigui-4389a6385/) [](https://github.com/mohamedelhoudaigui) |
 | **Anas El Ammari** | CyberSecurity & AI/ML | [](https://www.linkedin.com/in/anas-ri/) [](https://github.com/gitraiden) |
-
-```
-```
