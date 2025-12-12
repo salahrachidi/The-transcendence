@@ -8,7 +8,7 @@
     <img src="https://img.youtube.com/vi/pO4oQQxJ3yk/0.jpg" alt="The Transcendence" width="480" height="360" border="10" />
   </a>
   <br>
-  <sub>🎥 <strong>Click the image above to watch the gameplay demo</strong></sub>
+  <sub>🎥 <strong>Click the image above to watch the demo</strong></sub>
 </div>
 
 ---
@@ -82,99 +82,103 @@ graph TD
 
 -----
 
+
+### Tech Stack
+| Component | Technology | Reasoning |
+|-----------|------------|-----------|
+| **Frontend** | Next.js 15, Framer Motion | SSR for SEO and performance; Motion for premium feel. |
+| **Backend** | Fastify (Node.js) | Low overhead, high throughput API handling. |
+| **Database** | PostgreSQL / SQLite | Relational data integrity for match history. |
+| **Security** | HashiCorp Vault | Centralized secret management (No hardcoded keys!). |
+| **DevOps** | Docker Compose, Makefile | 1-command deployment and environment isolation. |
+
+---
+
 ## 📸 Visual Showcase
 
 ### 🎮 Gameplay & Matchmaking
-
 | **Remote Match Launcher** | **Tournament Launcher** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![Remote Match](/uploads/screenshots/remote%20match%20luncher.png) | ![Tournament](/uploads/screenshots/tournament%20luncher.png) |
 
 | **Local Launcher** | **Matches History** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![Local Match](/uploads/screenshots/local%20luncher.png) | ![History](/uploads/screenshots/matches%20history.png) |
 
 ### 👤 User Profile & Settings
-
 | **User Profile** | **Account Settings** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![Profile](/uploads/screenshots/profile.png) | ![Settings](/uploads/screenshots/settings.png) |
 
 ### 🔐 Authentication
-
 | **Login Page** | **Registration** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![Login](/uploads/screenshots/login.png) | ![Register](/uploads/screenshots/register.png) |
 
 ### 💬 Social & Features
-
 | **Live Chat** | **Dashboard (Main)** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![Chat](/uploads/screenshots/chat.png) | ![Dashboard](/uploads/screenshots/dashboard-en.png) |
 
 ### 🌍 Internationalization & Accessibility
-
 | **Dashboard (Arabic)** | **Dashboard (French)** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![Dashboard AR](/uploads/screenshots/dashboard-ar.png) | ![Dashboard FR](/uploads/screenshots/dsahboard-fr.png) |
 
 | **High Contrast Mode** | **Dark Mode** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![High Contrast](/uploads/screenshots/dashboard-hight-contrast.png) | ![Dark Mode](/uploads/screenshots/dsahboard-dark.png) |
 
 ### 📊 DevOps & Monitoring
-
 | **Grafana Query Dashboard** | **Grafana HTTP Dashboard** |
 |:------------------:|:-------------------:|
-|  |  |
+| ![Grafana 1](/uploads/screenshots/graf1.png) | ![Grafana 2](/uploads/screenshots/graf2.png) |
 
------
+---
 
 ## 🛠️ Getting Started
-
 We believe in "Infrastructure as Code". You don't need to configure 10 files to run this.
 
 ### Prerequisites
-
-  - Docker & Docker Compose
-  - Make
+- Docker & Docker Compose
+- Make
 
 ### Installation
+1. **Clone the repository**
+   ```bash
+   git clone git@github.com:salahrachidi/The-transcendence.git
+   cd ft_transcendence
+   ```
 
-1.  **Clone the repository**
+2. **Launch the Infrastructure**
+   ```bash
+   make up
+   ```
+   *This command orchestrates the frontend, backend, database, and Vault containers automatically.*
 
-    ```bash
-    git clone git@github.com:salahrachidi/The-transcendence.git
-    cd ft_transcendence
-    ```
+3. **Access the App**
+   Open [https://localhost](https://localhost) in your browser. (Accept the self-signed certificate, part of our HTTPS setup).
 
-2.  **Launch the Infrastructure**
-
-    ```bash
-    make up
-    ```
-
-    *This command orchestrates the frontend, backend, database, and Vault containers automatically.*
-
-3.  **Access the App**
-    Open [https://localhost](https://www.google.com/search?q=https://localhost) in your browser. (Accept the self-signed certificate, part of our HTTPS setup).
-
------
+---
 
 ## 💡 Challenges Solved
+- **Immersive Arcade UI:** Crafted a custom Glassmorphism/Neon design language using **TailwindCSS**, **Framer Motion**, and **Lucide Icons** to enhance user immersion to the Arcade game vibe.
+- **The "Cookie" Dilemma:** Solving `SameSite=Strict` policies while handling cross-container communication.
+- **Secret Zero:** Bootstrapping Vault securely without hardcoding the initial unseal tokens in the application code.
+- **State Synchronization:** Handling race conditions in real-time game logic using optimistic UI updates.
 
-  - **Immersive Arcade UI:** Crafted a custom Glassmorphism/Neon design language using **TailwindCSS**, **Framer Motion**, and **Lucide Icons** to enhance user immersion.
-  - **The "Cookie" Dilemma:** Solving `SameSite=Strict` policies while handling cross-container communication.
-  - **Secret Zero:** Bootstrapping Vault securely without hardcoding the initial unseal tokens.
-  - **State Synchronization:** Handling race conditions in real-time game logic using optimistic UI updates.
-
------
+---
 
 ## 📬 Contact
+**Mehdi El Akary** - AI/ML & DevOps Enthusiast
+[LinkedIn](https://www.linkedin.com/in/elakarymehdi/) | [GitHub](https://github.com/callmemehdy)
 
-| Team Member | Role | Socials |
-|:-----------|:-----|:--------|
-| **Mehdi El Akary** | AI/ML & DevOps | [](https://www.linkedin.com/in/elakarymehdi/) [](https://github.com/callmemehdy) |
-| **Salaheddine Rachidi** | Full-Stack, Robotics & AI/ML | [](https://www.linkedin.com/in/rachidi1/) [](https://github.com/salahrachidi) |
-| **Mohamed Elhoudaigui** | AI/ML & Backend | [](https://www.linkedin.com/in/mohamed-el-houdaigui-4389a6385/) [](https://github.com/mohamedelhoudaigui) |
-| **Anas El Ammari** | CyberSecurity & AI/ML | [](https://www.linkedin.com/in/anas-ri/) [](https://github.com/gitraiden) |
+**Salaheddine rachidi** - Full-Stack & Robotics & AI/ML Enthusiast
+[LinkedIn](https://www.linkedin.com/in/rachidi1/) | [GitHub](https://github.com/salahrachidi)
+
+**mohamed elhoudaigui** - AI/ML & Backend Enthusiast
+[LinkedIn](https://www.linkedin.com/in/mohamed-el-houdaigui-4389a6385/) | [GitHub](https://github.com/mohamedelhoudaigui)
+
+**Anas El Ammari** - CyberSecurity & AI/ML Enthusiast
+[LinkedIn](https://www.linkedin.com/in/anas-ri/) | [GitHub](https://github.com/gitraiden)
+
