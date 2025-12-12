@@ -69,17 +69,6 @@ graph TD
     Backend -->|Metrics| Prom[Prometheus Monitor]
 ```
 
-
-### Tech Stack
-
-| Component | Technology | Reasoning |
-|-----------|------------|-----------|
-| **Frontend** | Next.js 15, Framer Motion | SSR for SEO and performance; Motion for premium feel. |
-| **Backend** | Fastify (Node.js) | Low overhead, high throughput API handling. |
-| **Database** | PostgreSQL / SQLite | Relational data integrity for match history. |
-| **Security** | HashiCorp Vault | Centralized secret management (No hardcoded keys\!). |
-| **DevOps** | Docker Compose, Makefile | 1-command deployment and environment isolation. |
-
 -----
 
 
