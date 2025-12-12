@@ -31,8 +31,17 @@ up_nginx:
 	docker compose up nginx-waf -d --build
 
 
-up:
-	@docker compose up -d --build
+up: vault
+#	//Automate vault init if not initialized
+	@echo "Checking for Vault initialization..."
+	@if [ ! -f secrets/role_creds.txt ]; then \
+		echo "Vault not initialized or credentials missing. Running vault-init..."; \
+		$(MAKE) vault-init; \
+		echo "Waiting for credentials to be generated..."; \
+		while [ ! -f secrets/role_creds.txt ]; do sleep 1; done; \
+	fi
+	@echo "Starting Application with Vault Credentials..."
+	@bash -c 'source secrets/role_creds.txt && docker compose up -d --build'
 
 down:
 	docker compose down --remove-orphans -v
