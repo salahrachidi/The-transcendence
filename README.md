@@ -3,10 +3,11 @@
   <h3>The Ultimate Ping Pong Platform 🏓</h3>
 </div>
 
-<a href="https://www.youtube.com/watch?v=pO4oQQxJ3yk" target="_blank">
- <img src="https://img.youtube.com/vi/pO4oQQxJ3yk/0.jpg" alt="The Transcendence" width="480" height="360" border="10" />
-</a>
-
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=pO4oQQxJ3yk" target="_blank">
+   <img src="https://img.youtube.com/vi/pO4oQQxJ3yk/0.jpg" alt="The Transcendence" width="480" height="360" border="10" />
+  </a>
+</div>
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker&logoColor=white)
