@@ -3,7 +3,9 @@
   <h3>The Ultimate Ping Pong Platform 🏓</h3>
 </div>
 
-![Poster](/uploads/Poster.png)
+<a href="https://www.youtube.com/watch?v=pO4oQQxJ3yk" target="_blank">
+ <img src="https://img.youtube.com/vi/pO4oQQxJ3yk/0.jpg" alt="The Transcendence" width="480" height="360" border="10" />
+</a>
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)
@@ -12,11 +14,6 @@
 ![Testing](https://img.shields.io/badge/Tests-Passing-green)
 
 > **"Not just a game. A lesson in secure, scalable, real-time architecture."**
-
-<a href="https://www.youtube.com/watch?v=pO4oQQxJ3yk" target="_blank">
- <img src="https://img.youtube.com/vi/pO4oQQxJ3yk/0.jpg" alt="The Transcendence" width="480" height="360" border="10" />
-</a>
-
 
 ## 🚀 Overview
 **ft_transcendence** is a feature-rich, real-time multiplayer Pong platform. But under the hood, it's a showcase of modern DevOps and Secure Software Development Life Cycle (SSDLC) practices.
