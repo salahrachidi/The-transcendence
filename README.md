@@ -67,3 +67,117 @@ graph TD
     Backend -->|Read/Write| DB[(Database)]
     Backend -->|Auth| Vault[HashiCorp Vault]
     Backend -->|Metrics| Prom[Prometheus Monitor]
+
+
+
+### Tech Stack
+
+| Component | Technology | Reasoning |
+|-----------|------------|-----------|
+| **Frontend** | Next.js 15, Framer Motion | SSR for SEO and performance; Motion for premium feel. |
+| **Backend** | Fastify (Node.js) | Low overhead, high throughput API handling. |
+| **Database** | PostgreSQL / SQLite | Relational data integrity for match history. |
+| **Security** | HashiCorp Vault | Centralized secret management (No hardcoded keys\!). |
+| **DevOps** | Docker Compose, Makefile | 1-command deployment and environment isolation. |
+
+-----
+
+## 📸 Visual Showcase
+
+### 🎮 Gameplay & Matchmaking
+
+| **Remote Match Launcher** | **Tournament Launcher** |
+|:------------------:|:-------------------:|
+|  |  |
+
+| **Local Launcher** | **Matches History** |
+|:------------------:|:-------------------:|
+|  |  |
+
+### 👤 User Profile & Settings
+
+| **User Profile** | **Account Settings** |
+|:------------------:|:-------------------:|
+|  |  |
+
+### 🔐 Authentication
+
+| **Login Page** | **Registration** |
+|:------------------:|:-------------------:|
+|  |  |
+
+### 💬 Social & Features
+
+| **Live Chat** | **Dashboard (Main)** |
+|:------------------:|:-------------------:|
+|  |  |
+
+### 🌍 Internationalization & Accessibility
+
+| **Dashboard (Arabic)** | **Dashboard (French)** |
+|:------------------:|:-------------------:|
+|  |  |
+
+| **High Contrast Mode** | **Dark Mode** |
+|:------------------:|:-------------------:|
+|  |  |
+
+### 📊 DevOps & Monitoring
+
+| **Grafana Query Dashboard** | **Grafana HTTP Dashboard** |
+|:------------------:|:-------------------:|
+|  |  |
+
+-----
+
+## 🛠️ Getting Started
+
+We believe in "Infrastructure as Code". You don't need to configure 10 files to run this.
+
+### Prerequisites
+
+  - Docker & Docker Compose
+  - Make
+
+### Installation
+
+1.  **Clone the repository**
+
+    ```bash
+    git clone git@github.com:salahrachidi/The-transcendence.git
+    cd ft_transcendence
+    ```
+
+2.  **Launch the Infrastructure**
+
+    ```bash
+    make up
+    ```
+
+    *This command orchestrates the frontend, backend, database, and Vault containers automatically.*
+
+3.  **Access the App**
+    Open [https://localhost](https://www.google.com/search?q=https://localhost) in your browser. (Accept the self-signed certificate, part of our HTTPS setup).
+
+-----
+
+## 💡 Challenges Solved
+
+  - **Immersive Arcade UI:** Crafted a custom Glassmorphism/Neon design language using **TailwindCSS**, **Framer Motion**, and **Lucide Icons** to enhance user immersion.
+  - **The "Cookie" Dilemma:** Solving `SameSite=Strict` policies while handling cross-container communication.
+  - **Secret Zero:** Bootstrapping Vault securely without hardcoding the initial unseal tokens.
+  - **State Synchronization:** Handling race conditions in real-time game logic using optimistic UI updates.
+
+-----
+
+## 📬 Contact
+
+| Team Member | Role | Socials |
+|:-----------|:-----|:--------|
+| **Mehdi El Akary** | AI/ML & DevOps | [](https://www.linkedin.com/in/elakarymehdi/) [](https://github.com/callmemehdy) |
+| **Salaheddine Rachidi** | Full-Stack, Robotics & AI/ML | [](https://www.linkedin.com/in/rachidi1/) [](https://github.com/salahrachidi) |
+| **Mohamed Elhoudaigui** | AI/ML & Backend | [](https://www.linkedin.com/in/mohamed-el-houdaigui-4389a6385/) [](https://github.com/mohamedelhoudaigui) |
+| **Anas El Ammari** | CyberSecurity & AI/ML | [](https://www.linkedin.com/in/anas-ri/) [](https://github.com/gitraiden) |
+
+```
+```
