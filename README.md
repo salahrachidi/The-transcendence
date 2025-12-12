@@ -13,7 +13,9 @@
 
 > **"Not just a game. A lesson in secure, scalable, real-time architecture."**
 
-[![Video Thumbnail Alt Text](URL_OF_YOUR_THUMBNAIL_IMAGE)](URL_OF_VIMEO_VIDEO_PAGE)
+<a href="https://www.youtube.com/watch?v=pO4oQQxJ3yk" target="_blank">
+ <img src="https://img.youtube.com/vi/pO4oQQxJ3yk/0.jpg" alt="The Transcendence" width="480" height="360" border="10" />
+</a>
 
 
 ## 🚀 Overview
