@@ -14,6 +14,9 @@
 
 > **"Not just a game. A lesson in secure, scalable, real-time architecture."**
 
+[![Video Thumbnail Alt Text](URL_OF_YOUR_THUMBNAIL_IMAGE)](URL_OF_VIMEO_VIDEO_PAGE)
+
+
 ## 🚀 Overview
 **ft_transcendence** is a feature-rich, real-time multiplayer Pong platform. But under the hood, it's a showcase of modern DevOps and Secure Software Development Life Cycle (SSDLC) practices.
 
