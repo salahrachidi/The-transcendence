@@ -3,7 +3,18 @@
   <h3>The Ultimate Ping Pong Platform 🏓</h3>
 </div>
 
-![Poster](/uploads/Poster.png)
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=pO4oQQxJ3yk" target="_blank">
+    <img src="https://img.youtube.com/vi/pO4oQQxJ3yk/0.jpg" alt="The Transcendence" width="480" height="360" border="10" />
+  </a>
+  <br>
+  <sub>🎥 <strong>Click the image above to watch the demo</strong></sub>
+</div>
+
+---
+
+<div align="center">
+
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)
@@ -13,8 +24,18 @@
 
 > **"Not just a game. A lesson in secure, scalable, real-time architecture."**
 
-[![Video Thumbnail Alt Text](URL_OF_YOUR_THUMBNAIL_IMAGE)](URL_OF_VIMEO_VIDEO_PAGE)
+</div>
 
+## 📑 Table of Contents
+- [Overview](#-overview)
+- [Key Features](#-key-features--the-why)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Visual Showcase](#-visual-showcase)
+- [Getting Started](#%EF%B8%8F-getting-started)
+- [Challenges Solved](#-challenges-solved)
+- [Contact](#-contact)
+
+---
 
 ## 🚀 Overview
 **ft_transcendence** is a feature-rich, real-time multiplayer Pong platform. But under the hood, it's a showcase of modern DevOps and Secure Software Development Life Cycle (SSDLC) practices.
@@ -30,7 +51,7 @@ _Why this stack? Because performance and security matter._
 - **⚡ Real-Time Performance:** Utilizes WebSockets for low-latency gameplay, ensuring a smooth competitive experience.
 - **🐋 Containerized Infrastructure:** Fully Dockerized environment ensuring consistency from development to production. `make up` is all you need.
 - **🔐 Two-Factor Authentication (2FA):** Implements industry-standard TOTP 2FA for robust user account security.
-- **📊 Interactive Dashboard:** dynamic visualizations of user stats and match history.
+- **📊 Interactive Dashboard:** Dynamic visualizations of user stats and match history.
 
 ---
 
@@ -48,6 +69,9 @@ graph TD
     Backend -->|Metrics| Prom[Prometheus Monitor]
 ```
 
+-----
+
+
 ### Tech Stack
 | Component | Technology | Reasoning |
 |-----------|------------|-----------|
@@ -60,20 +84,6 @@ graph TD
 ---
 
 ## 📸 Visual Showcase
-<!--*(Add your GIFs here! Recruiter Tip: People watch videos more than they read code.)*-->
-
-<!--### 🎥 Live Demonstrations
-| **Remote Game** | **Tournament Mode** |
-|:------------------:|:-------------------:|
-| ![Remote](/uploads/gifs/remote-10.gif) | ![Tournament](/uploads/gifs/Tournament-10.gif) |
-
-| **Interactive Dashboard** | **Real-Time Chat** |
-|:------------------:|:-------------------:|
-| ![Dashboard](/uploads/gifs/seededdsahboard-10.gif) | ![Chat](/uploads/gifs/Chat-10.gif) |
-
-| **Secure Auth Flow (2FA)** | **Grafana Monitoring** |
-|:------------------:|:-------------------:|
-| ![Auth](/uploads/gifs/auth-10.gif) | ![Grafana](/uploads/gifs/grafana-10.gif) |-->
 
 ### 🎮 Gameplay & Matchmaking
 | **Remote Match Launcher** | **Tournament Launcher** |
@@ -160,3 +170,4 @@ We believe in "Infrastructure as Code". You don't need to configure 10 files to 
 
 **Anas El Ammari** - CyberSecurity & AI/ML Enthusiast
 [LinkedIn](https://www.linkedin.com/in/anas-ri/) | [GitHub](https://github.com/gitraiden)
+
