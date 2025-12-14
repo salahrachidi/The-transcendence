@@ -6,12 +6,33 @@ const db = new Database(dbPath);
 
 console.log("🌱 Starting seed with stats update...");
 
-// 1. Get all users
-const users = db.prepare('SELECT id, nickname FROM users').all();
+// 1. Get all users or create them if missing
+let users = db.prepare('SELECT id, nickname FROM users').all();
 
 if (users.length < 2) {
-	console.error("❌ Not enough users to match! (Found: " + users.length + ")");
-	process.exit(1);
+	console.log("⚠️ Not enough users found. Creating default users...");
+
+	const insertUser = db.prepare(`
+		INSERT INTO users (nickname, email, password, avatar) 
+		VALUES (?, ?, ?, ?)
+	`);
+
+	const defaultUsers = [
+		{ name: 'user1', email: 'user_1@gmail.com' },
+		{ name: 'user2', email: 'user_2@gmail.com' },
+		{ name: 'user3', email: 'user_3@gmail.com' },
+		{ name: 'user4', email: 'user_4@gmail.com' }
+	];
+
+	for (const u of defaultUsers) {
+		try {
+			insertUser.run(u.name, u.email, 'password123', '/uploads/default.png');
+		} catch (e) {
+			console.log(`Skipping ${u.name} (might already exist)`);
+		}
+	}
+
+	users = db.prepare('SELECT id, nickname FROM users').all();
 }
 
 console.log(`found ${users.length} users:`, users.map(u => u.nickname).join(', '));
