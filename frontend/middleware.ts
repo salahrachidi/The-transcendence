@@ -7,7 +7,20 @@ const backendPrefixes = ['/auth', '/user', '/friendship', '/uploads', '/socket.i
 
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
-	const token = request.cookies.get('token')?.value
+	let token = request.cookies.get('token')?.value
+
+	// Check if token is expired
+	if (token) {
+		try {
+			const payload = JSON.parse(atob(token.split('.')[1]))
+			if (payload.exp && Date.now() >= payload.exp * 1000) {
+				token = undefined // Treat as expired
+			}
+		} catch (e) {
+			// If token is invalid/malformed, treat as no token
+			token = undefined
+		}
+	}
 
 	// Exclude backend routes, static assets, and files
 	if (

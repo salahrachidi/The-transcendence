@@ -202,18 +202,20 @@ const authController = {
 
 		const token = request.cookies.token
 
-		if (token === undefined) {
-			return reply.status(401).send({
-				success: false,
-				result: 'not auth token provided'
-			})
+		// Attempt to blacklist the token if it's still valid-ish (structure-wise)
+		if (token) {
+			try {
+				const decodedToken = await request.jwtVerify()
+				// Only blacklist if verification succeeded (meaning it wasn't expired yet, or we want to track it)
+				// If it throws (e.g. expired), we just skip blacklisting but still clear cookie.
+				const expirationDate = new Date(decodedToken.exp * 1000)
+				const expires_at_iso = expirationDate.toISOString()
+				await jwtModel.addJwt(this.db, token, expires_at_iso)
+			} catch (error) {
+				// Token likely expired or invalid. We don't care, we just want to clear the cookie.
+				// console.log("Logout with invalid/expired token:", error.message);
+			}
 		}
-
-		const decodedToken = await request.jwtVerify()
-		const expirationDate = new Date(decodedToken.exp * 1000)
-		const expires_at_iso = expirationDate.toISOString()
-
-		await jwtModel.addJwt(this.db, token, expires_at_iso)
 
 		return reply.clearCookie('token', jwtCookieParams.cookie).status(200).send({
 			success: true,

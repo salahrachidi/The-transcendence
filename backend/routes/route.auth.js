@@ -79,7 +79,7 @@ function authRoutes(server) {
 	}, authController.disable2FA_C)
 
 	server.post('/logout', {
-		onRequest: [server.auth]
+		// onRequest: [server.auth] // Removed to allow logout with expired token
 	}, authController.logout_C)
 
 	server.get('/github/callback', authController.githubCallback_C)
